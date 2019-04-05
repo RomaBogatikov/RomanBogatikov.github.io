@@ -1,3 +1,17 @@
-body {
-  background: turquoise;
+body, html {
+  height: 100%;
+}
+
+.container {
+  max-width: 800px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.bg_img {
+  background-image: url("images/cowbow_farm.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

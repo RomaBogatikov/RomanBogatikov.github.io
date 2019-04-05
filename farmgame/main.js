@@ -12,14 +12,14 @@ let tempFahrenheit;
 
 // build query to send API request
 
-const buildQuery = () => {
+const buildQueryForWeather = () => {
   cityName = prompt('Please enter your city:');
   console.log('cityname=', cityName);
   queryURL = baseURL + 'q=' + cityName + '&' + apiKEY;
 };
 
 // get data from API (weather)
-const getData = () => {
+const getDataFromWeather = () => {
   $.ajax({
       url: queryURL,
       type: "GET",
@@ -44,9 +44,10 @@ const getData = () => {
 $( () => {
 
   // get user input (city name)
-  buildQuery();
-
-  getData();
+  // buildQueryForWeather();
+  // get weather data from the API
+  // getDataFromWeather();
+  //
 
 
 }) // end of document onready function
