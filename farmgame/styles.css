@@ -1,7 +1,14 @@
+/* to make sure everything sizes appropriately */
+* {
+  box-sizing: border-box;
+}
+
+/* to display background image */
 body, html {
   height: 100%;
 }
 
+/* to center and not to allow to grow above 800px */
 .container {
   max-width: 800px;
   height: 100%;
@@ -14,4 +21,85 @@ body, html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  /* flex container (children: .assets and .right_container */
+  display: flex;
+  flex-direction: row;
+
+}
+
+.assets {
+  background:rgba(155, 47, 47, 0.5);
+
+  /* property for .assets as a flex-item inside .bg_img */
+  flex-basis: 25%;
+
+  /* flex container (children .barn and .field */
+  display: flex;
+  flex-direction: column;
+}
+
+.right_container {
+  background: rgba(135, 155, 135, 0.5);
+
+  /* property for .assets as a flex-item inside .bg_img */
+  flex-grow: 1;
+
+  /* <!-- flex container for .game_status, .pick_animals, .pick_crops, .game_info, .btn_container --> */
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+.barn {
+  background: rgba(190, 162, 18, 0.7);
+
+  /* flex item of .assets */
+  /* set flex-grow 1 so .barn takes all available space when .field is not displayed */
+  flex-grow: 1;
+}
+
+.field {
+  /* to display .field change display: none to block */
+  display: block;
+  background: rgba(26, 204, 26, 0.7);
+
+  /* flex item of .assets */
+  flex-basis: 50%;
+}
+
+.game_status {
+  background: rgba(27, 27, 192, 0.5)
+
+  /* flex-item on .right_container */
+
+}
+
+.pick_animals {
+  background: rgba(189, 22, 22, 0.5);
+
+  /* flex item of .right_container */
+  flex-grow: 1;
+}
+
+.pick_crops {
+  background: rgba(17, 12, 12, 0.5);
+
+  /* flex item of .right_container */
+  flex-grow: 1;
+}
+
+.game_info {
+  background: rgba(248, 163, 4, 0.5);
+
+  /* flex-item of .right_container */
+  /* consider toggling to flex-basis 30% to expand game-info field */
+  /* flex-basis: 30%; */
+}
+
+.btn_container {
+  background: rgba(201, 23, 201, 0.5);
+  /* to move button 'Next Year' right */
+  text-align: right;
 }

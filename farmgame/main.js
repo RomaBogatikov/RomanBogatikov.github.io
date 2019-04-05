@@ -10,8 +10,23 @@ let tempKelvin;
 let tempFahrenheit;
 
 
-// build query to send API request
 
+
+// get user input: loan amount
+const getLoanAmount = () => {
+  const loanAmount = prompt('To start a farming business you can borrow up to $100,000 at 4% for 30 years. How much do you want to borrow?');
+  calculateLoanPayment(loanAmount);
+}
+
+// calculate yearly payment for your 30-year loan (4%) based on user input
+const calculateLoanPayment = (loanAmount) => {
+  let loanPayment = loanAmount * 0.04 * Math.pow( (1 + 0.04), 30 ) / ( Math.pow((1 + 0.04), 30) - 1 );
+  console.log(Math.ceil(loanPayment));
+}
+
+console.log(calculateLoanPayment(100000));
+
+// build query to send API request
 const buildQueryForWeather = () => {
   cityName = prompt('Please enter your city:');
   console.log('cityname=', cityName);
@@ -47,8 +62,9 @@ $( () => {
   // buildQueryForWeather();
   // get weather data from the API
   // getDataFromWeather();
-  //
 
+  // get user input (loan amount)
+  // getLoanAmount();
 
 }) // end of document onready function
 
