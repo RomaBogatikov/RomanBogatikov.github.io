@@ -3,12 +3,20 @@ console.log('heyyy!');
 const baseURL = "http://api.openweathermap.org/data/2.5/weather?";
 const apiKEY = "APPID=9cb8c52c107e169c583442deeb0a7c0d";
 // const cityID = "id=" + 2172797;
-const cityName = "Bridgeport";
-const queryURL = baseURL + 'q=' + cityName + '&' + apiKEY;
+let cityName;
+let queryURL;
 let weather;
 let tempKelvin;
 let tempFahrenheit;
 
+
+// build query to send API request
+
+const buildQuery = () => {
+  cityName = prompt('Please enter your city:');
+  console.log('cityname=', cityName);
+  queryURL = baseURL + 'q=' + cityName + '&' + apiKEY;
+};
 
 // get data from API (weather)
 const getData = () => {
@@ -21,20 +29,25 @@ const getData = () => {
     alert("Retrieved " + data.length + " records from the dataset!");
     // console.log(data);
     weather = data;
-    console.log(weather);
-    console.log(weather.main.temp);
+    console.log('data from API =', weather);
     tempKelvin = parseInt(weather.main.temp);
     tempFahrenheit = (tempKelvin - 273.15) * 9/5 + 32;
-    console.log(tempFahrenheit)
 
+    console.log('tempKelvin=', tempKelvin);
+    console.log('tempFahrenheit=', tempFahrenheit)
   });
 }
+
 
 
 // document onready function
 $( () => {
 
+  // get user input (city name)
+  buildQuery();
+
   getData();
+
 
 }) // end of document onready function
 
