@@ -13,10 +13,11 @@ let tempFahrenheit;
 // class Farmer (loanAmount needs to be passed)
 
 class Farmer {
-  constructor (loanAmount) {
+  constructor (loanAmount, loanPaymentYearly) {
     this.barn = [];
     this.field = [];
     this.loanAmount = loanAmount;
+    this.loanPaymentYearly = loanPaymentYearly;
     this.farmerAccount = 0;
     this.earnedThisYear = 0;
   }
@@ -77,8 +78,9 @@ const getLoanAmount = () => {
 
 // calculate yearly payment for your 30-year loan (4%) based on user input
 const calculateLoanPayment = (loanAmount) => {
-  let loanPayment = loanAmount * 0.04 * Math.pow( (1 + 0.04), 30 ) / ( Math.pow((1 + 0.04), 30) - 1 );
-  console.log(Math.ceil(loanPayment));
+  let loanPaymentYearly = loanAmount * 0.04 * Math.pow( (1 + 0.04), 30 ) / ( Math.pow((1 + 0.04), 30) - 1 );
+  console.log(Math.ceil(loanPaymentYearly));
+  return Math.ceil(loanPaymentYearly);
 }
 
 // function to buy a barn
@@ -132,14 +134,17 @@ $( () => {
 
   // get user input (loan amount)
   let loanAmount = getLoanAmount();
+  let loanPaymentYearly = calculateLoanPayment(loanAmount);
 
   // create a farmer
-  const farmer = new Farmer(loanAmount);
+  const farmer = new Farmer(loanAmount, loanPaymentYearly);
   console.log('farmer=', farmer);
 
   // notify that the user has enough money to purchase a barn for $45000
   buyBarn(farmer);
   console.log('farmer=', farmer);
+
+
 
 }) // end of document onready function
 
