@@ -50,14 +50,16 @@ class FieldFarmAsset extends FarmAsset {
 
 // create a factory to generate new chickens
 class Factory {
-  constructor(animal) {
+  constructor(animal, farmer) {
     this.animal = animal;
     this.costToBuy = 5000;
     this.profitYearly = 15000;
-    this.chickens = [];
+    this.chickens = farmer.barn;
   }
   generateChicken () {
     const newChicken = new BarnFarmAsset(this.costToBuy, this.profitYearly);
+    this.chickens.push(newChicken);
+
   }
   findChicken (index) {
     return this.chickens[index];
@@ -143,6 +145,15 @@ $( () => {
   // notify that the user has enough money to purchase a barn for $45000
   buyBarn(farmer);
   console.log('farmer=', farmer);
+
+  // create a chicken factory (to be able to click on chiken from the store and it will add to barn)
+  const chickenFactory = new Factory('chicken', farmer);
+  console.log(chickenFactory);
+
+  chickenFactory.generateChicken();
+  chickenFactory.generateChicken();
+  console.log('farmer=', farmer);
+  console.log(chickenFactory);
 
 
 
