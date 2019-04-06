@@ -58,6 +58,8 @@ const getDataFromWeather = () => {
 // document onready function
 $( () => {
 
+  console.log($('.barn').css('line-height'));
+
   // get user input (city name)
   // buildQueryForWeather();
   // get weather data from the API

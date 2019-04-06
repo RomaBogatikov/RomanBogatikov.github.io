@@ -3,9 +3,13 @@
   box-sizing: border-box;
 }
 
-/* to display background image */
 body, html {
+  /* to display background image */
   height: 100%;
+
+  /* to override default value for better styling (especially for mobile) */
+  margin: 0;
+
 }
 
 /* to center and not to allow to grow above 800px */
@@ -54,10 +58,36 @@ body, html {
 
 .barn {
   background: rgba(190, 162, 18, 0.7);
-
+  /* explicitly set line-height for calculations of height in .barn_animals */
+  /* line-height: 1.2em; */
   /* flex item of .assets */
   /* set flex-grow 1 so .barn takes all available space when .field is not displayed */
   flex-grow: 1;
+
+}
+
+.barn_field_contents {
+  width: 80%;
+  /* default line-height is normal: 1.2 */
+  /* try to calculate based on vh */
+  height: calc(50vh - 1em * 1.2);
+  /* max-height: 30vh; */
+
+  margin: 0 auto;
+  background: black;
+  border-radius: 10px;
+
+  overflow: scroll;
+
+}
+
+.barn_field_contents > img {
+  width: 100%;
+  /* height: auto; */
+  padding-top:0.5rem;
+  padding-bottom: 0.5rem;
+
+
 }
 
 .field {
@@ -102,4 +132,8 @@ body, html {
   background: rgba(201, 23, 201, 0.5);
   /* to move button 'Next Year' right */
   text-align: right;
+}
+
+p {
+  height: 1rem;
 }
