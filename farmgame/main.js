@@ -10,6 +10,60 @@ let tempKelvin;
 let tempFahrenheit;
 
 
+// class Farmer (loanAmount needs to be passed)
+
+class Farmer {
+  constructor (loanAmount) {
+    this.barn = [];
+    this.field = [];
+    this.loanAmount = loanAmount;
+    this.farmerAccount = 0;
+    this.earnedThisYear = 0;
+  }
+  // sell assets method can later on go here
+}
+
+// class FarmAsset to later construct: chicken, sheep, goat
+class FarmAsset {
+  constructor (costToBuy, profitYearly) {
+    this.costToBuy = costToBuy;
+    this.profitYearly = profitYearly;
+  }
+}
+
+// specify that the user doesn't need to buy new farm animals each year, they just produce income
+class BarnFarmAsset extends FarmAsset {
+  constructor(costToBuy, profitYearly) {
+    super(costToBuy, profitYearly);
+    this.needToBuyEachYear = false;
+  }
+}
+
+// specify that the user needs to buy new seeds to grow plants yearly.
+class FieldFarmAsset extends FarmAsset {
+  constructor(costToBuy, profitYearly) {
+    super(costToBuy, profitYearly);
+    this.needToBuyEachYear = true;
+  }
+}
+
+// create a factory to generate new chickens
+class Factory {
+  constructor(animal) {
+    this.animal = animal;
+    this.costToBuy = 5000;
+    this.profitYearly = 15000;
+    this.chickens = [];
+  }
+  generateChicken () {
+    const newChicken = new BarnFarmAsset(this.costToBuy, this.profitYearly);
+  }
+  findChicken (index) {
+    return this.chickens[index];
+  }
+
+}
+
 
 
 
@@ -18,12 +72,20 @@ let tempFahrenheit;
 const getLoanAmount = () => {
   const loanAmount = prompt('To start a farming business you can borrow up to $100,000 at 4% for 30 years. How much do you want to borrow?');
   calculateLoanPayment(loanAmount);
+  return parseInt(loanAmount);
 }
 
 // calculate yearly payment for your 30-year loan (4%) based on user input
 const calculateLoanPayment = (loanAmount) => {
   let loanPayment = loanAmount * 0.04 * Math.pow( (1 + 0.04), 30 ) / ( Math.pow((1 + 0.04), 30) - 1 );
   console.log(Math.ceil(loanPayment));
+}
+
+// function to buy a barn
+const buyBarn = (farmer) => {
+  alert('You bought a barn for $45000, now you can buy chikens, cows, goats or sheep and earn income each year');
+  farmer.farmerAccount = farmer.loanAmount - 45000;
+
 }
 
 console.log(calculateLoanPayment(100000));
@@ -60,17 +122,24 @@ const getDataFromWeather = () => {
 // document onready function
 $( () => {
 
-  console.log($('.barn').css('line-height'));
+  // console.log($('.barn').css('line-height'));
 
   // get user input (city name)
   // buildQueryForWeather();
   // get weather data from the API
   // getDataFromWeather();
 
-  // get user input (loan amount)
-  // getLoanAmount();
 
-  // notify that the user has enough money to purchase a barn for $50000
+  // get user input (loan amount)
+  let loanAmount = getLoanAmount();
+
+  // create a farmer
+  const farmer = new Farmer(loanAmount);
+  console.log('farmer=', farmer);
+
+  // notify that the user has enough money to purchase a barn for $45000
+  buyBarn(farmer);
+  console.log('farmer=', farmer);
 
 }) // end of document onready function
 
