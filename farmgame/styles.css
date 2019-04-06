@@ -1,6 +1,7 @@
 /* to make sure everything sizes appropriately */
 * {
   box-sizing: border-box;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
 body, html {
@@ -49,6 +50,8 @@ body, html {
   /* property for .assets as a flex-item inside .bg_img */
   flex-grow: 1;
 
+  /* try to set width */
+
   /* <!-- flex container for .game_status, .pick_animals, .pick_crops, .game_info, .btn_container --> */
   display: flex;
   flex-direction: column;
@@ -64,6 +67,9 @@ body, html {
   /* set flex-grow 1 so .barn takes all available space when .field is not displayed */
   flex-grow: 1;
 
+  /* to center word barn */
+  text-align: center;
+
 }
 
 .barn_field_contents {
@@ -76,7 +82,7 @@ body, html {
   margin: 0 auto;
   background: black;
   border-radius: 10px;
-
+  /* to enable scrolling */
   overflow: scroll;
 
 }
@@ -96,7 +102,9 @@ body, html {
   background: rgba(26, 204, 26, 0.7);
 
   /* flex item of .assets */
-  flex-basis: 50%;
+  /* flex-basis: 50%; */
+  /* to center word 'field' */
+  text-align: center;
 }
 
 .game_status {
@@ -110,7 +118,8 @@ body, html {
   background: rgba(189, 22, 22, 0.5);
 
   /* flex item of .right_container */
-  flex-grow: 1;
+  /* flex-grow: 1; */
+
 }
 
 .pick_crops {
@@ -134,6 +143,30 @@ body, html {
   text-align: right;
 }
 
+.store_animals_crops {
+  background: black;
+  width: 90%;
+  height: 150px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  /* overflow: scroll; */
+
+}
+
+.store_animals_crops > img {
+  /* flex-basis: 25%; */
+  max-height: 100%;
+  max-width: auto;
+  /* object-fit: contain; */
+
+}
+
+
+/* may be needed for .right_container game status */
 p {
   height: 1rem;
 }

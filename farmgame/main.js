@@ -12,6 +12,8 @@ let tempFahrenheit;
 
 
 
+
+
 // get user input: loan amount
 const getLoanAmount = () => {
   const loanAmount = prompt('To start a farming business you can borrow up to $100,000 at 4% for 30 years. How much do you want to borrow?');
@@ -67,6 +69,8 @@ $( () => {
 
   // get user input (loan amount)
   // getLoanAmount();
+
+  // notify that the user has enough money to purchase a barn for $50000
 
 }) // end of document onready function
 
