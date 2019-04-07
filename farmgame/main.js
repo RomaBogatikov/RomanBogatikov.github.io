@@ -56,10 +56,11 @@ class Factory {
     this.profitYearly = 15000;
     this.chickens = farmer.barn;
   }
-  generateChicken () {
+  generateChicken (farmer) {
     const newChicken = new BarnFarmAsset(this.costToBuy, this.profitYearly);
     this.chickens.push(newChicken);
-
+    // when a new chichen is generated, that means farmer bought it
+    farmer.farmerAccount -= this.costToBuy;
   }
   findChicken (index) {
     return this.chickens[index];
@@ -150,11 +151,30 @@ $( () => {
   const chickenFactory = new Factory('chicken', farmer);
   console.log(chickenFactory);
 
-  chickenFactory.generateChicken();
-  chickenFactory.generateChicken();
-  console.log('farmer=', farmer);
-  console.log(chickenFactory);
 
+
+
+
+  // chickenFactory.generateChicken();
+  // chickenFactory.generateChicken();
+  // console.log('farmer=', farmer);
+  // console.log(chickenFactory);
+
+  $('.img_container > .chicken').on('click', (event) => {
+    // get clicked image src attribute
+    const clickedImgSrc = $(event.currentTarget).attr('src');
+    // console.log(clickedImgSrc);
+    // create new img tag with clicked image source attribute
+    const $newImg = $('<img>').attr('src', clickedImgSrc);;
+    // console.log($newImg);
+    // append newImg to barn
+    $('.barn > .barn_field_contents').append($newImg);
+    // generate a new chicken belonging to the farmer
+    chickenFactory.generateChicken(farmer);
+    console.log('farmer=', farmer);
+  }
+
+  )
 
 
 }) // end of document onready function
