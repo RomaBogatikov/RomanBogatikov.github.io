@@ -18,6 +18,24 @@ body, html {
   max-width: 800px;
   height: 100%;
   margin: 0 auto;
+
+  /* to put form up on top */
+  position: relative;
+}
+
+.form_container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(236, 157, 236, 0.7);
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+
 }
 
 .bg_img {
@@ -77,7 +95,8 @@ body, html {
   width: 80%;
   /* default line-height is normal: 1.2 */
   /* try to calculate based on vh */
-  height: calc(50vh - 1em * 1.2);
+  /* height: calc(50vh - 1em * 1.2); */
+  height: calc(100vh - 1em * 1.2);
   /* max-height: 30vh; */
 
   margin: 0 auto;
@@ -99,7 +118,7 @@ body, html {
 
 .field {
   /* to display .field change display: none to block */
-  display: block;
+  display: none;
   background: rgba(26, 204, 26, 0.7);
 
   /* flex item of .assets */
@@ -128,6 +147,11 @@ body, html {
 
   /* flex item of .right_container */
   flex-grow: 1;
+}
+
+/* change display to 'block' in js to display it */
+.pick_crops > div {
+  display: none;
 }
 
 .game_info {
@@ -180,6 +204,14 @@ body, html {
   flex-grow: 1;
   text-align: center;
 }
+
+.pick_animals, .pick_crops {
+  text-align: center;
+  font-weight: 700;
+  padding-top: 1em;
+}
+
+
 
 
 /* may be needed for .right_container game status */

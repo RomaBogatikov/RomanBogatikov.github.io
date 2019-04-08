@@ -10,8 +10,14 @@
   <title>FarmGame</title>
 </head>
 <body>
-
   <div class="container">
+    <div class="form_container">
+      <form>
+        <p>Get info from the user</p>
+        <input type="text">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
 
     <!-- flex container for .assets, .right_container -->
     <div class="bg_img">
@@ -52,6 +58,7 @@
 
         <div class="game_status">
           <div>Loan: $<span class='loan'>0</span></div>
+          <div>Loan payment yearly: $<span class='loanPaymentYearly'>0</span></div>
           <div>Year income: $<span class='earnedThisYear'>0</span></div>
           <div>Weather coef: <span class='weatherCoef'>1</span></div>
           <div>Bank account: $<span class='farmerAccount'>0</span></div>
@@ -59,7 +66,7 @@
         </div>
 
         <div class="pick_animals">
-          <div>
+
             Pick animals you want to breed this year
             <div class="store_animals_crops">
               <div class="img_container">
@@ -79,30 +86,31 @@
                 <img src="images/sheep4.png" alt="sheep" class="sheep">
               </div>
             </div>
-          </div>
+
         </div>
 
         <div class="pick_crops">
-          Pick crops you want to harvest this year
-          <div class="store_animals_crops">
-            <div class="img_container">
+          <div>
+            Pick crops you want to harvest this year
+            <div class="store_animals_crops">
+              <div class="img_container">
 
-              <img src="images/potato1.png" alt="chicken" class="chicken">
-            </div>
-            <div class="img_container">
+                <img src="images/potato1.png" alt="potato" class="potato">
+              </div>
+              <div class="img_container">
 
-              <img src="images/corn2.png" alt="cow" class="cow">
-            </div>
-            <div class="img_container">
+                <img src="images/corn2.png" alt="corn" class="corn">
+              </div>
+              <div class="img_container">
 
-              <img src="images/lettuce.png" alt="goat" class="goat">
-            </div>
-            <div class="img_container">
+                <img src="images/lettuce.png" alt="lettuce" class="lettuce">
+              </div>
+              <div class="img_container">
 
-              <img src="images/broccoli.png" alt="sheep" class="sheep">
+                <img src="images/broccoli.png" alt="broccoli" class="broccoli">
+              </div>
             </div>
           </div>
-
         </div>
 
         <div class="game_info">
