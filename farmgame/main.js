@@ -106,6 +106,7 @@ class Farmer {
 
     // update game statistics on the screen
     this.showStatistics();
+    $('.barn_field_contents').empty();
   }
 
   // function to update game statistics on the screen
@@ -115,6 +116,17 @@ class Farmer {
     $('.weatherCoef').text(`${this.weatherCoef}`);
     $('.farmerAccount').text(`${this.farmerAccount}`);
     $('.yearsInBusiness').text(`${this.yearsInBusiness}`);
+  }
+
+  // function to check if the user has won
+  didWin = () => {
+    if (this.yearsInBusiness === 30) {
+      if (this.farmerAccount >= 5000000) {
+        alert('Great job! You won! You are a retired multimillionaire!');
+      } else {
+        alert('You did not win but your retirement nest egg is pretty impressive!')
+      }
+    }
   }
 
 }
