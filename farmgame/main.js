@@ -99,6 +99,17 @@ class Farmer {
     // add (earnedThisYear - loanPaymentYearly) to farmerAccount
     this.farmerAccount += this.earnedThisYear - this.loanPaymentYearly;
     console.log(this);
+
+    // update game statistics on the screen
+    this.showStatistics();
+  }
+
+  // function to update game statistics on the screen
+  showStatistics = () => {
+    $('.loan').text(`${this.loanAmount}`);
+    $('.earnedThisYear').text(`${this.earnedThisYear}`);
+    $('.weatherCoef').text(`${this.weatherCoef}`);
+    $('.farmerAccount').text(`${this.farmerAccount}`);
   }
 
 }
@@ -242,6 +253,9 @@ const getDataFromWeather = (queryURL) => {
 
     console.log('farmer=', farmer);
     // return farmer;
+
+    // show game statistics
+    farmer.showStatistics();
 
   });
 }

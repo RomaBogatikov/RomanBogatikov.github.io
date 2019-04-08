@@ -170,6 +170,17 @@ body, html {
 
 }
 
+.game_status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.game_status > div {
+  flex-grow: 1;
+  text-align: center;
+}
+
 
 /* may be needed for .right_container game status */
 p {
