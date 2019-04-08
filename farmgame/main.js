@@ -22,6 +22,7 @@ class Farmer {
   constructor (loanAmount, loanPaymentYearly, weatherCoef) {
     this.barn = [];
     this.field = [];
+    this.yearsInBusiness = 0;
     this.loanAmount = loanAmount;
     this.loanPaymentYearly = loanPaymentYearly;
     this.weatherCoef = weatherCoef;
@@ -100,6 +101,9 @@ class Farmer {
     this.farmerAccount += this.earnedThisYear - this.loanPaymentYearly;
     console.log(this);
 
+    // increase yearsInBusiness counter
+    this.yearsInBusiness++;
+
     // update game statistics on the screen
     this.showStatistics();
   }
@@ -110,6 +114,7 @@ class Farmer {
     $('.earnedThisYear').text(`${this.earnedThisYear}`);
     $('.weatherCoef').text(`${this.weatherCoef}`);
     $('.farmerAccount').text(`${this.farmerAccount}`);
+    $('.yearsInBusiness').text(`${this.yearsInBusiness}`);
   }
 
 }
