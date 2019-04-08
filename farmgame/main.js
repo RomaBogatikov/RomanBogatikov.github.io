@@ -1,13 +1,19 @@
 console.log('heyyy!');
 
-const baseURL = "http://api.openweathermap.org/data/2.5/weather?";
-const apiKEY = "APPID=9cb8c52c107e169c583442deeb0a7c0d";
+// const baseURL = "http://api.openweathermap.org/data/2.5/weather?";
+// const apiKEY = "APPID=9cb8c52c107e169c583442deeb0a7c0d";
 // const cityID = "id=" + 2172797;
-let cityName;
-let queryURL;
-let weather;
-let tempKelvin;
-let tempFahrenheit;
+// let cityName;
+// let queryURL;
+// let weather;
+// let tempKelvin;
+// let tempFahrenheit;
+
+let chickenFactory;
+let cowFactory;
+let goatFactory;
+let sheepFactory;
+let farmer;
 
 
 // class Farmer (loanAmount needs to be passed)
@@ -20,16 +26,19 @@ class Farmer {
     this.loanPaymentYearly = loanPaymentYearly;
     this.farmerAccount = 0;
     this.earnedThisYear = 0;
+    this.tempFahrenheit = tempFahrenheit;
   }
   // function to buy animals from the store (when the animal is clicked)
   buyAnimal = (event) => {
+    console.log('this=', this);
+    console.log('farmer=', farmer);
     // get class of clicked element
     const clickedClass = $(event.currentTarget).attr('class');
     // console.log('costtobuy=', chickenFactory.costToBuy);
-
+    console.log('clicked', clickedClass);
     // check the class of clicked picture and generate a corresponding animal + append corresponding picture to the barn
     if (clickedClass === 'chicken') {
-      if (chickenFactory.costToBuy <= this.farmerAccount) {
+      if (chickenFactory.costToBuy <= (this).farmerAccount) {
         chickenFactory.generateAnimal(farmer);
         appendPicture(event);
       } else {
@@ -62,16 +71,11 @@ class Farmer {
     // const clickedImgSrc = $(event.currentTarget).attr('src');
     // const $newImg = $('<img>').attr('src', clickedImgSrc);
     // $('.barn > .barn_field_contents').append($newImg);
-    console.log('farmer=', this);
+    // console.log('farmer=', this);
     // chickenFactory.generateAnimal(farmer)
     console.log('farmer=', this);
   }
 
-  // appendPicture = (event) => {
-  //   const clickedImgSrc = $(event.currentTarget).attr('src');
-  //   const $newImg = $('<img>').attr('src', clickedImgSrc);
-  //   $('.barn > .barn_field_contents').append($newImg);
-  // }
 
   // function to buy a barn from the borrowed money
   buyBarn () {
@@ -140,7 +144,6 @@ class Factory {
   findCAnimal (index) {
     return this.animals[index];
   }
-
 }
 
 
@@ -165,24 +168,20 @@ const appendPicture = (event) => {
   $('.barn > .barn_field_contents').append($newImg);
 }
 
-// function to buy a barn
-// const buyBarn = (farmer) => {
-//   alert('You bought a barn for $45000, now you can buy chikens, cows, goats or sheep and earn income each year');
-//   farmer.farmerAccount = farmer.loanAmount - 45000;
-
-// }
-
 console.log(calculateLoanPayment(100000));
 
 // build query to send API request
 const buildQueryForWeather = () => {
-  cityName = prompt('Please enter your city:');
+  const baseURL = "http://api.openweathermap.org/data/2.5/weather?";
+  const apiKEY = "APPID=9cb8c52c107e169c583442deeb0a7c0d";
+  const cityName = prompt('Please enter your city:');
   console.log('cityname=', cityName);
-  queryURL = baseURL + 'q=' + cityName + '&' + apiKEY;
+  const queryURL = baseURL + 'q=' + cityName + '&' + apiKEY;
+  return queryURL;
 };
 
 // get data from API (weather)
-const getDataFromWeather = () => {
+const getDataFromWeather = (queryURL) => {
   $.ajax({
       url: queryURL,
       type: "GET",
@@ -197,37 +196,76 @@ const getDataFromWeather = () => {
     tempFahrenheit = (tempKelvin - 273.15) * 9/5 + 32;
 
     console.log('tempKelvin=', tempKelvin);
-    console.log('tempFahrenheit=', tempFahrenheit)
+    console.log('tempFahrenheit=', tempFahrenheit);
+
+    // get user input (loan amount)
+    let loanAmount = getLoanAmount();
+    let loanPaymentYearly = calculateLoanPayment(loanAmount);
+
+    // create a farmer
+    farmer = new Farmer(loanAmount, loanPaymentYearly);
+    // console.log('farmer=', farmer);
+
+    // notify that the user has enough money to purchase a barn for $45000
+    farmer.buyBarn();
+
+    // create chicken, cow, goat, and sheep factory (to be able to click on corresponding picture from the store and it will be added to the barn)
+    chickenFactory = new Factory('chicken',4000, 14000, farmer);
+    cowFactory = new Factory('cow', 7000, 17000, farmer);
+    goatFactory = new Factory('goat', 6000, 16000, farmer);
+    sheepFactory = new Factory('sheep', 5000, 15000, farmer);
+
+    console.log(chickenFactory);
+
+    $('.img_container > .chicken').on('click', farmer.buyAnimal);
+    $('.img_container > .cow').on('click', farmer.buyAnimal);
+    $('.img_container > .goat').on('click', farmer.buyAnimal);
+    $('.img_container > .sheep').on('click', farmer.buyAnimal);
+
+    $('.btn_next_year').on('click', farmer.nextYear)
+
+    console.log('farmer=', farmer);
+    // return farmer;
+
   });
 }
 
-// const buyAnimal = (event) => {
-//   const clickedImgSrc = $(event.currentTarget).attr('src');
-//   const $newImg = $('<img>').attr('src', clickedImgSrc);
-//   $('.barn > .barn_field_contents').append($newImg);
-//   console.log('farmer=', farmer);
-// }
+
+// get user input (city name)
+const queryURL = buildQueryForWeather();
+// get weather data from the API
+getDataFromWeather(queryURL);
 
 
-// get user input (loan amount)
-let loanAmount = getLoanAmount();
-let loanPaymentYearly = calculateLoanPayment(loanAmount);
 
-// create a farmer
-const farmer = new Farmer(loanAmount, loanPaymentYearly);
+
+    // // create chicken, cow, goat, and sheep factory (to be able to click on corresponding picture from the store and it will be added to the barn)
+    // const chickenFactory = new Factory('chicken',4000, 14000, farmer);
+    // const cowFactory = new Factory('cow', 7000, 17000, farmer);
+    // const goatFactory = new Factory('goat', 6000, 16000, farmer);
+    // const sheepFactory = new Factory('sheep', 5000, 15000, farmer);
+
+    // console.log(chickenFactory);
+
+// // get user input (loan amount)
+// let loanAmount = getLoanAmount();
+// let loanPaymentYearly = calculateLoanPayment(loanAmount);
+
+// // create a farmer
+// const farmer = new Farmer(loanAmount, loanPaymentYearly);
+// // console.log('farmer=', farmer);
+
+// // notify that the user has enough money to purchase a barn for $45000
+// farmer.buyBarn();
 // console.log('farmer=', farmer);
 
-// notify that the user has enough money to purchase a barn for $45000
-farmer.buyBarn();
-console.log('farmer=', farmer);
+// // create chicken, cow, goat, and sheep factory (to be able to click on corresponding picture from the store and it will be added to the barn)
+// const chickenFactory = new Factory('chicken',4000, 14000, farmer);
+// const cowFactory = new Factory('cow', 7000, 17000, farmer);
+// const goatFactory = new Factory('goat', 6000, 16000, farmer);
+// const sheepFactory = new Factory('sheep', 5000, 15000, farmer);
 
-// create chicken, cow, goat, and sheep factory (to be able to click on corresponding picture from the store and it will be added to the barn)
-const chickenFactory = new Factory('chicken',4000, 14000, farmer);
-const cowFactory = new Factory('cow', 7000, 17000, farmer);
-const goatFactory = new Factory('goat', 6000, 16000, farmer);
-const sheepFactory = new Factory('sheep', 5000, 15000, farmer);
-
-console.log(chickenFactory);
+// console.log(chickenFactory);
 
 
 
@@ -238,16 +276,12 @@ $( () => {
 
   // console.log($('.barn').css('line-height'));
 
-  $('.img_container > .chicken').on('click', farmer.buyAnimal);
-  $('.img_container > .cow').on('click', farmer.buyAnimal);
-  $('.img_container > .goat').on('click', farmer.buyAnimal);
-  $('.img_container > .sheep').on('click', farmer.buyAnimal);
+  // $('.img_container > .chicken').on('click', farmer.buyAnimal);
+  // $('.img_container > .cow').on('click', farmer.buyAnimal);
+  // $('.img_container > .goat').on('click', farmer.buyAnimal);
+  // $('.img_container > .sheep').on('click', farmer.buyAnimal);
 
-  $('.btn_next_year').on('click', farmer.nextYear)
-  // get user input (city name)
-  // buildQueryForWeather();
-  // get weather data from the API
-  // getDataFromWeather();
+  // $('.btn_next_year').on('click', farmer.nextYear)
 
 
 
