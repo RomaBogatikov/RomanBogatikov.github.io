@@ -19,11 +19,12 @@ let farmer;
 // class Farmer (loanAmount needs to be passed)
 
 class Farmer {
-  constructor (loanAmount, loanPaymentYearly) {
+  constructor (loanAmount, loanPaymentYearly, weatherCoef) {
     this.barn = [];
     this.field = [];
     this.loanAmount = loanAmount;
     this.loanPaymentYearly = loanPaymentYearly;
+    this.weatherCoef = weatherCoef;
     this.farmerAccount = 0;
     this.earnedThisYear = 0;
     this.tempFahrenheit = tempFahrenheit;
@@ -91,7 +92,7 @@ class Farmer {
     for (let animal of this.barn) {
       console.log('this.barn=', this.barn);
       console.log('animal.profitYearly=', animal);
-      this.earnedThisYear += animal.profitYearly;
+      this.earnedThisYear += animal.profitYearly * this.weatherCoef;
     }
     // subtract payment for the loan (loanPaymentYearly) from loanAmount
     this.loanAmount -= this.loanPaymentYearly;
@@ -170,6 +171,20 @@ const appendPicture = (event) => {
 
 console.log(calculateLoanPayment(100000));
 
+// function to set weather_coef
+const setWeatherCoef = (tempFahrenheit) => {
+  if (tempFahrenheit >= 60) {
+    alert('The temperatures in the region your farm is located are too high. You will only be able to earn 80% of maximum income');
+    return 0.8;
+  } else if (tempFahrenheit <= 50) {
+    alert('The temperatures in the region your farm is located are too low. You will only be able to earn 70% of maximum income');
+    return 0.7;
+  } else {
+    alert('Your farm is located in a nice climate. You will earn maximum possible income.')
+    return 1;
+  }
+}
+
 // build query to send API request
 const buildQueryForWeather = () => {
   const baseURL = "http://api.openweathermap.org/data/2.5/weather?";
@@ -197,13 +212,14 @@ const getDataFromWeather = (queryURL) => {
 
     console.log('tempKelvin=', tempKelvin);
     console.log('tempFahrenheit=', tempFahrenheit);
+    let weatherCoef = setWeatherCoef(tempFahrenheit);
 
     // get user input (loan amount)
     let loanAmount = getLoanAmount();
     let loanPaymentYearly = calculateLoanPayment(loanAmount);
 
     // create a farmer
-    farmer = new Farmer(loanAmount, loanPaymentYearly);
+    farmer = new Farmer(loanAmount, loanPaymentYearly, weatherCoef);
     // console.log('farmer=', farmer);
 
     // notify that the user has enough money to purchase a barn for $45000
