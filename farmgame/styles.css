@@ -29,13 +29,33 @@ body, html {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(236, 157, 236, 0.7);
+  /* background: rgba(236, 157, 236, 0.7); */
 
-  display: none;
+  background: rgb(242,242,242);
+  background: linear-gradient(0deg, rgba(242,242,242,0.47607655502392343) 0%, rgba(251,37,129,0.9401913875598086) 50%, rgba(255,255,255,0.6435406698564594) 100%);
+
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
 
+}
+
+.form_container > p {
+  height: auto;
+  text-align: center;
+  font-weight: 600;
+  margin: 0 10% 1em 10%;
+  line-height: 1.8em;
+}
+
+.city {
+  z-index: 1;
+}
+
+.loan {
+  z-index: -1;
 }
 
 .bg_img {
@@ -52,7 +72,7 @@ body, html {
 }
 
 .assets {
-  background:rgba(155, 47, 47, 0.5);
+  /* background:rgba(155, 47, 47, 0.5); */
 
   /* property for .assets as a flex-item inside .bg_img */
   flex-basis: 20%;
@@ -60,10 +80,12 @@ body, html {
   /* flex container (children .barn and .field */
   display: flex;
   flex-direction: column;
+  font-weight: 900;
+  letter-spacing: 0.5ch;
 }
 
 .right_container {
-  background: rgba(135, 155, 135, 0.5);
+  /* background: rgba(135, 155, 135, 0.5); */
 
   /* property for .assets as a flex-item inside .bg_img */
   flex-grow: 1;
@@ -79,7 +101,7 @@ body, html {
 
 
 .barn {
-  background: rgba(190, 162, 18, 0.7);
+  /* background: rgba(190, 162, 18, 0.3); */
   /* explicitly set line-height for calculations of height in .barn_animals */
   /* line-height: 1.2em; */
   /* flex item of .assets */
@@ -100,7 +122,7 @@ body, html {
   /* max-height: 30vh; */
 
   margin: 0 auto;
-  background: black;
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   /* to enable scrolling */
   overflow: scroll;
@@ -119,7 +141,7 @@ body, html {
 .field {
   /* to display .field change display: none to block */
   display: none;
-  background: rgba(26, 204, 26, 0.7);
+  /* background: rgba(26, 204, 26, 0.3); */
 
   /* flex item of .assets */
   /* flex-basis: 50%; */
@@ -127,23 +149,39 @@ body, html {
   text-align: center;
 }
 
-.game_status {
-  background: rgba(27, 27, 192, 0.5)
+/* .game_status { */
+  /* background: rgba(27, 27, 192, 0.5) */
 
   /* flex-item on .right_container */
 
+/* } */
+
+.game_status > div {
+  background: rgba(245,174,205, 0.5);
+background: radial-gradient(circle, rgba(245,174,205,0.5) 0%, rgba(255,255,255,0.5) 100%);
 }
 
-.pick_animals {
-  background: rgba(189, 22, 22, 0.5);
+/* .pick_animals { */
+  /* background: rgba(189, 22, 22, 0.5); */
 
   /* flex item of .right_container */
   /* flex-grow: 1; */
 
+/* } */
+
+.pick_animals > p:first-of-type, .pick_crops > div:first-child > p:first-of-type {
+  box-sizing: content-box;
+  display: inline-block;
+  padding: 1em;
+  margin: 0;
+  height: auto;
+  border-radius: 10px;
+  color: white;
+  background: rgba(12, 2, 150, 0.9);
 }
 
 .pick_crops {
-  background: rgba(17, 12, 12, 0.5);
+  /* background: rgba(17, 12, 12, 0.5); */
 
   /* flex item of .right_container */
   flex-grow: 1;
@@ -155,24 +193,42 @@ body, html {
 }
 
 .game_info {
-  background: rgba(248, 163, 4, 0.5);
-
+  background: rgba(248, 163, 4, 0.8);
+  text-align: center;
+  line-height: 1.5em;
   /* flex-item of .right_container */
   /* consider toggling to flex-basis 30% to expand game-info field */
   /* flex-basis: 30%; */
 }
 
+.game_info > span {
+  font-weight: 700;
+}
+
 .btn_container {
-  background: rgba(201, 23, 201, 0.5);
+  /* background: rgba(201, 23, 201, 0.5); */
   /* to move button 'Next Year' right */
   text-align: right;
 }
 
+.btn_next_year {
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 15px;
+  background-color: yellowgreen;
+  border: none;
+}
+
+.btn_next_year:hover {
+  background-color: darkorange;
+}
+
 .store_animals_crops {
-  background: black;
+  background: rgba(0, 0, 0, 0.8);
   width: 90%;
   height: auto;
   margin: 0 auto;
+  border-radius: 10px;
 
   display: flex;
   flex-direction: row;
@@ -192,6 +248,12 @@ body, html {
   max-width: 100%;
   /* object-fit: contain; */
 
+}
+
+.img_container > p {
+  font-size: 0.8rem;
+  color: white;
+  margin: 0;
 }
 
 .game_status {
@@ -215,6 +277,6 @@ body, html {
 
 
 /* may be needed for .right_container game status */
-p {
+/* p {
   height: 1rem;
-}
+} */

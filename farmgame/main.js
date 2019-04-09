@@ -10,6 +10,9 @@ console.log('heyyy!');
 // let tempFahrenheit;
 
 const gameSpan = 10;
+let queryURL;
+let loanAmount;
+let loanPaymentYearly;
 
 let farmer;
 const barnPrice = 45000;
@@ -257,18 +260,24 @@ class FactoryPlant {
 
 
 // get user input: loan amount
-const getLoanAmount = () => {
-  const loanAmount = prompt('To start a farming business you can borrow up to $100,000 at 4% for 10 years. How much do you want to borrow?');
+const getLoanAmount = (event) => {
+  event.preventDefault();
+  // const loanAmount = prompt('To start a farming business you can borrow up to $100,000 at 4% for 10 years. How much do you want to borrow?');
+  loanAmount = parseInt($("input[type='text']").val());
+  console.log('loanAmount=', loanAmount);
   calculateLoanPayment(loanAmount);
-  return parseInt(loanAmount);
+  // return parseInt(loanAmount);
+  $(event.currentTarget).parent().remove();
 }
 
 // calculate yearly payment for your 30-year loan (4%) based on user input
 const calculateLoanPayment = (loanAmount) => {
-  let loanPaymentYearly = loanAmount * 0.04 * Math.pow( (1 + 0.04), gameSpan ) / ( Math.pow((1 + 0.04), gameSpan) - 1 );
-  console.log(Math.ceil(loanPaymentYearly));
-  return loanPaymentYearly;
+  loanPaymentYearly = loanAmount * 0.04 * Math.pow( (1 + 0.04), gameSpan ) / ( Math.pow((1 + 0.04), gameSpan) - 1 );
+  console.log('loanPaymentYearly=', Math.ceil(loanPaymentYearly));
+  // return loanPaymentYearly;
+  getDataFromWeather(queryURL);
 }
+
 
 // function to append picture to barn when it is clicked in store
 const appendPicture = (event, clickedClass) => {
@@ -282,7 +291,7 @@ const appendPicture = (event, clickedClass) => {
   }
 }
 
-console.log(calculateLoanPayment(100000));
+// console.log(calculateLoanPayment(100000));
 
 // function to set weather_coef
 const setWeatherCoef = (tempFahrenheit) => {
@@ -313,58 +322,24 @@ const enableField = () => {
   }
 }
 
-///////////////////
-////Experiments to get user input
-/////////////////////
-
-// async function handleForm() {
-//   $('.form_container > p').text(message);
-//   $('.form_container > p').text(message);
-//   let userInput = await getUserInput();
-//   console.log('after getting user input: ', userInput)
-// }
-
-// function getUserInput () {
-//   return new Promise( (resolve, reject) => {
-//     $("input[type='submit']").on('submit', (event) => {
-//       const inputVal = $("input[type='text']").val();
-//       resolve(inputVal);
-//     })
-//   } )
-// }
-
-// // function to get user input instead of using prompt()
-// const askUserForInput = (message) => {
-//   $('.form_container > p').text(message);
-//   $('.form_container > p').text(message);
-//   $("input[type=submit]").on("submit", submitUserInput)
-// }
-
-// // function to return user input when submit button is clicked
-// const submitUserInput = () => {
-//   console.log('clicked submit');
-//   $('.form_container').css('display', 'none');
-//   return $("input[type=text]").val();
-// }
-
-// function askUserForInputAsync(askUserForInput, submitUserInput) {
-//   askUserForInput();
-//   loop();
-
-//   function loop() {
-//     if (submitUserInput())
-//   }
-// }
 
 // build query to send API request
-const buildQueryForWeather = () => {
+const buildQueryForWeather = (event) => {
+  event.preventDefault();
+  console.log('I am building query for weather API')
   const baseURL = "http://api.openweathermap.org/data/2.5/weather?";
   const apiKEY = "APPID=9cb8c52c107e169c583442deeb0a7c0d";
-  const cityName = prompt('Please enter your city:');
+  console.log($(event.currentTarget));
+  const cityName = $("input[type='text']").val();
   // const cityName = askUserForInput("please enter your city:");
-  console.log('cityname=', cityName);
-  const queryURL = baseURL + 'q=' + cityName + '&' + apiKEY;
-  return queryURL;
+  // console.log('cityname=', cityName);
+  queryURL = baseURL + 'q=' + cityName + '&' + apiKEY;
+  // return queryURL;
+  console.log('queryURL=', queryURL);
+  // return getDataFromWeather(queryURL);
+
+  $(event.currentTarget).parent().remove();
+  $('.loan').css('z-index', '1');
 };
 
 
@@ -388,9 +363,9 @@ const getDataFromWeather = (queryURL) => {
     console.log('tempFahrenheit=', tempFahrenheit);
     let weatherCoef = setWeatherCoef(tempFahrenheit);
 
-    // get user input (loan amount)
-    let loanAmount = getLoanAmount();
-    let loanPaymentYearly = calculateLoanPayment(loanAmount);
+    // // get user input (loan amount)
+    // let loanAmount = getLoanAmount();
+    // let loanPaymentYearly = calculateLoanPayment(loanAmount);
 
     // create a farmer
     farmer = new Farmer(loanAmount, loanPaymentYearly, weatherCoef);
@@ -436,11 +411,22 @@ const getDataFromWeather = (queryURL) => {
   });
 }
 
+// document onready function
+$( () => {
+  $(".city > form").on("submit", buildQueryForWeather);
+  $(".loan > form").on("submit", getLoanAmount);
+}) // end of document onready function
+
+
+
+
+
+
 
 // get user input (city name)
-const queryURL = buildQueryForWeather();
+// const queryURL = buildQueryForWeather();
 // get weather data from the API
-getDataFromWeather(queryURL);
+// getDataFromWeather(queryURL);
 
 
 
@@ -484,15 +470,7 @@ getDataFromWeather(queryURL);
 // console.log(chickenFactory);
 
 
-
-// document onready function
-$( () => {
-  $("input[type=submit]").on("click", () => {
-
-  })
-
-
-  // console.log($('.barn').css('line-height'));
+// console.log($('.barn').css('line-height'));
 
   // $('.img_container > .chicken').on('click', farmer.buyAsset);
   // $('.img_container > .cow').on('click', farmer.buyAsset);
@@ -527,7 +505,6 @@ $( () => {
 
 
 
-}) // end of document onready function
 
 
 

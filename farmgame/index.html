@@ -11,13 +11,23 @@
 </head>
 <body>
   <div class="container">
-    <div class="form_container">
+    <div class="form_container city">
+      <p>Welcome to the game 'Sweaty Future'. You have decided to start a business as a farmer. As you know, farmer's income heavily depends on the weather. So choose the location where you want to buy a barn carefully.</p>
       <form>
-        <p>Get info from the user</p>
-        <input type="text">
+        <input type="text" placeholder="type city here" autofocus>
         <input type="submit" value="Submit">
       </form>
     </div>
+    <div class="form_container loan">
+      <p>Since you have no spare money, you went to the local bank to get a loan. Specify the loan amount you want to get (between 50000 and 100000 dollars)</p>
+      <form>
+
+        <input type="text" placeholder="loan amount" autofocus>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+
 
     <!-- flex container for .assets, .right_container -->
     <div class="bg_img">
@@ -67,23 +77,27 @@
 
         <div class="pick_animals">
 
-            Pick animals you want to breed this year
+            <p>Pick animals you want to breed this year.<br />Price above, profit below</p>
             <div class="store_animals_crops">
               <div class="img_container">
-
+                <p>$4000</p>
                 <img src="images/chicken1.png" alt="chicken" class="chicken">
+                <p>$6000</p>
               </div>
               <div class="img_container">
-
+                <p>$7000</p>
                 <img src="images/cow2.png" alt="cow" class="cow">
+                <p>$10500</p>
               </div>
               <div class="img_container">
-
+                <p>$6000</p>
                 <img src="images/goat.png" alt="goat" class="goat">
+                <p>$9000</p>
               </div>
               <div class="img_container">
-
+                <p>$5000</p>
                 <img src="images/sheep4.png" alt="sheep" class="sheep">
+                <p>$7500</p>
               </div>
             </div>
 
@@ -91,30 +105,34 @@
 
         <div class="pick_crops">
           <div>
-            Pick crops you want to harvest this year
+            <p>Pick crops you want to harvest this year</p>
             <div class="store_animals_crops">
               <div class="img_container">
-
+                <p>$8000</p>
                 <img src="images/potato1.png" alt="potato" class="potato">
+                <p>$12000</p>
               </div>
               <div class="img_container">
-
+                <p>$9000</p>
                 <img src="images/corn2.png" alt="corn" class="corn">
+                <p>$13500</p>
               </div>
               <div class="img_container">
-
+                <p>$10000</p>
                 <img src="images/lettuce.png" alt="lettuce" class="lettuce">
+                <p>$15000</p>
               </div>
               <div class="img_container">
-
+                <p>$11000</p>
                 <img src="images/broccoli.png" alt="broccoli" class="broccoli">
+                <p>$16500</p>
               </div>
             </div>
           </div>
         </div>
 
         <div class="game_info">
-          game_info
+          So, you have decided to try yourself as a farmer. Using the money borrowed from the bank you have already bought a barn in the location you have selected where you can breed different animals. Each year you have to pick animals you want to breed or plants you want to grow (later in the game). The <span>price</span> can be found <span>above</span> the picture of each animal or plant, and the generated yearly <span>profit below</span>. Your goal is to earn more than one million dollars in 10 years to retire early and comfortably.
         </div>
 
         <div class="btn_container">
