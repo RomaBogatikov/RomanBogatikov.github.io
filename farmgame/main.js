@@ -350,7 +350,7 @@ const enableField = () => {
 const buildQueryForWeather = (event) => {
   event.preventDefault();
   console.log('I am building query for weather API')
-  const baseURL = "http://api.openweathermap.org/data/2.5/weather?";
+  const baseURL = "https://api.openweathermap.org/data/2.5/weather?";
   const apiKEY = "APPID=9cb8c52c107e169c583442deeb0a7c0d";
   console.log($(event.currentTarget));
   const cityName = $("input[type='text']").val();
