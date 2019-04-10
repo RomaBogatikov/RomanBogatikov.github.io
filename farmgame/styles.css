@@ -41,7 +41,7 @@ body, html {
   background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,74,228,1) 30%, rgba(249,81,224,1) 70%, rgba(255,255,255,0) 100%);
 
 
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -57,12 +57,16 @@ body, html {
   line-height: 1.8em;
 }
 
-.city {
-  z-index: 1;
+div.form_container.city {
+  display: none;
 }
 
-.loan {
-  z-index: -1;
+div.form_container.loan {
+  display: none;
+}
+
+div.form_container.localStorage {
+  display: none;
 }
 
 .bg_img {

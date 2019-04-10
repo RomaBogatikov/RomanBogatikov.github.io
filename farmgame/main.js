@@ -17,6 +17,7 @@ let loanAmount;
 let loanPaymentYearly;
 
 let farmer;
+let farmerFromLocalStorage;
 const barnPrice = 45000;
 
 // flag to alert the user that plants can be grown only once (for enableField() function)
@@ -36,18 +37,19 @@ let broccoliFactory;
 // class Farmer (loanAmount needs to be passed)
 
 class Farmer {
-  constructor (loanAmount, loanPaymentYearly, weatherCoef, farmCity) {
+  constructor (loanAmount, loanPaymentYearly, weatherCoef, farmCity, queryURL, farmerAccount, earnedThisYear, yearsInBusiness) {
     this.barn = [];
     this.field = [];
     this.fieldEnabled = false;
-    this.yearsInBusiness = 0;
+    this.yearsInBusiness = yearsInBusiness || 0;
     this.loanAmount = loanAmount;
     this.loanPaymentYearly = loanPaymentYearly;
+    this.farmerAccount = farmerAccount || 0;
+    this.earnedThisYear = earnedThisYear || 0;
     this.farmCity = farmCity;
-    this.weatherCoef = weatherCoef;
-    this.farmerAccount = 0;
-    this.earnedThisYear = 0;
     this.tempFahrenheit = tempFahrenheit;
+    this.weatherCoef = weatherCoef;
+    this.queryURL = queryURL;
   }
   // function to buy animals from the store (when the animal is clicked) ui object is needed for drag-drop functionality
   buyAsset = (event, ui) => {
@@ -383,7 +385,7 @@ const buildQueryForWeather = (event) => {
   // return getDataFromWeather(queryURL);
 
   $(event.currentTarget).parent().remove();
-  $('.loan').css('z-index', '1');
+  $('div.form_container.loan').css('display', 'flex');
 };
 
 
@@ -412,12 +414,19 @@ const getDataFromWeather = (queryURL) => {
     // let loanAmount = getLoanAmount();
     // let loanPaymentYearly = calculateLoanPayment(loanAmount);
 
-    // create a farmer
-    farmer = new Farmer(loanAmount, loanPaymentYearly, weatherCoef, farmCity);
-    // console.log('farmer=', farmer);
+    // if there is no farmerFromLocalStorage object (the new game was started)
+    if (typeof farmerFromLocalStorage === 'undefined') {
+      // create a farmer
+      farmer = new Farmer(loanAmount, loanPaymentYearly, weatherCoef, farmCity, queryURL);
+      // console.log('farmer=', farmer);
 
-    // notify that the user has enough money to purchase a barn for $45000
-    farmer.buyBarn();
+      // notify that the user has enough money to purchase a barn for $45000
+      farmer.buyBarn();
+      // if farmerFromLocalStorage exists load all the properties (except weatherCoef that was calculated in AJAX request)
+    } else {
+      farmer = new Farmer(farmerFromLocalStorage.loanAmount, farmerFromLocalStorage.loanPaymentYearly, weatherCoef, farmerFromLocalStorage.farmCity, farmerFromLocalStorage.queryURL, farmerFromLocalStorage.farmerAccount, farmerFromLocalStorage.earnedThisYear, farmerFromLocalStorage.yearsInBusiness);
+    }
+
 
     // create chicken, cow, goat, and sheep factory (to be able to click on corresponding picture from the store and it will be added to the barn)
     chickenFactory = new FactoryAnimal('chicken',4000, 6000, farmer);
@@ -466,6 +475,17 @@ const getDataFromWeather = (queryURL) => {
 
 
 
+const onLoadFunction = () => {
+  console.log('onload fired');
+  // console.log('localStorage is empty:', localStorage.getItem('farmer') === null);
+  const isLocalStorageEmpty = localStorage.getItem('farmer') === null;
+  console.log('localStorage is empty:', isLocalStorageEmpty);
+  if (isLocalStorageEmpty) {
+    $("div.form_container.city").css("display", "flex");
+  } else {
+    $("div.form_container.localStorage").css("display", "flex");
+  }
+}
 
 
 
@@ -474,12 +494,42 @@ const getDataFromWeather = (queryURL) => {
 $( () => {
   $(".city > form").on("submit", buildQueryForWeather);
   $(".loan > form").on("submit", getLoanAmount);
+  $(".localStorage > form > input[type='submit']").on("click", function (event) {
+    event.preventDefault();
+    console.log($(event.currentTarget).attr('id'));
+    const clickedID = $(event.currentTarget).attr('id');
+    // if start a new game was clicked, we remove the modal from the screen and start the game (with selecting a city etc.)
+    if (clickedID === 'start_new') {
+      $(event.currentTarget).parent().parent().remove();
+      $(".city").css("display", "flex");
+      // otherwise, 'continue previous game' was clicked
+    } else {
+      // load farmer object from localStorage, parse it
+      // assign it to 'farmer' variable
+      farmerFromLocalStorage = JSON.parse(localStorage.getItem('farmer'));
+      $(event.currentTarget).parent().parent().remove();
+      console.log(farmerFromLocalStorage);
+      getDataFromWeather(farmerFromLocalStorage.queryURL);
+    }
+
+  })
+  $(document).ready(onLoadFunction)
+
+  // $(window).on('load', onLoadFunction);
+
+
+
   // accordion functionality
   $( function () {
     $(".game_info").accordion({
       collapsible: true
     })
   })
+
+
+  /////////////////////////////////////////
+  ///////Drag and Drop Animals and Plants
+  /////////////////////////////////////////
   // // drag-drop functionality (to drag and drop animals from the store to barn or field)
   // make all images in the game draggable (background image is not under <img> tag). myHelper() is needed to preserve the size of the image when dragging starts
   $("img").draggable({ revert: true, helper: myHelper });
@@ -506,6 +556,15 @@ $( () => {
   }
 
 
+
+}) // end of document onready function
+
+
+
+
+
+
+
   // $( function() {
   //   let icons = {
   //     header: "ui-icon-circle-arrow-e",
@@ -516,15 +575,6 @@ $( () => {
   //     collapsible: true
   //   });
   // });
-
-
-
-
-}) // end of document onready function
-
-
-
-
 
 
 
