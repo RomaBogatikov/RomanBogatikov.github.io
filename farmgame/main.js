@@ -48,13 +48,15 @@ class Farmer {
   buyAsset = (event, ui) => {
     console.log('this=', this);
     console.log('farmer=', farmer);
+    console.log('ui=', $(ui));
+    console.log('event.type=', event.type);
     console.log('buyasset event =', $(event).eq(0).attr('class'));
     // console.log('buyasset ui=', $(ui.draggable));
     // console.log('buyasset ui class=', $(ui.draggable).eq(0).attr('class').match(/[a-z]+/)[0])
     // get class of clicked element
     console.log('buyAsset event type=', $(event)[0].type);
     let clickedClass;
-    let typeOfEvent = $(event)[0].type;
+    let typeOfEvent = event.type;
     if (typeOfEvent === 'click') {
       clickedClass = $(event.currentTarget).attr('class').match(/[a-z]+/)[0];
       // otherwise, typeOfEvent === 'drop'

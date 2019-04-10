@@ -34,8 +34,12 @@ body, html {
   left: 0;
   /* background: rgba(236, 157, 236, 0.7); */
 
-  background: rgb(242,242,242);
-  background: linear-gradient(0deg, rgba(242,242,242,0.47607655502392343) 0%, rgba(251,37,129,0.9401913875598086) 50%, rgba(255,255,255,0.6435406698564594) 100%);
+  /* background: rgb(242,242,242);
+  background: linear-gradient(0deg, rgba(242,242,242,0.47607655502392343) 0%, rgba(251,37,129,0.9401913875598086) 50%, rgba(255,255,255,0.6435406698564594) 100%); */
+
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,74,228,1) 30%, rgba(249,81,224,1) 70%, rgba(255,255,255,0) 100%);
+
 
   display: flex;
   flex-direction: column;
@@ -308,7 +312,7 @@ img:hover {
 .ui-accordion a {
   zoom: 1;
 } */
-.ui-accordion-icons .ui-accordion-header a {
+/* .ui-accordion-icons .ui-accordion-header a {
   padding-left: 2.2em;
 }
 .ui-accordion .ui-accordion-header .ui-icon {
@@ -327,10 +331,12 @@ img:hover {
   overflow: auto;
   display: none;
   zoom: 1;
+
+
 }
 .ui-accordion .ui-accordion-content-active {
   display: block;
-}
+} */
 
 
 
