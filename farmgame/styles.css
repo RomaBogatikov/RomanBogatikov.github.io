@@ -1,3 +1,6 @@
+
+
+
 /* to make sure everything sizes appropriately */
 * {
   box-sizing: border-box;
@@ -177,7 +180,10 @@ background: radial-gradient(circle, rgba(245,174,205,0.5) 0%, rgba(255,255,255,0
   height: auto;
   border-radius: 10px;
   color: white;
-  background: rgba(12, 2, 150, 0.9);
+  /* background: rgba(12, 2, 150, 0.9); */
+
+  background: rgb(242,242,242);
+background: linear-gradient(0deg, rgba(242,242,242,0) 0%, rgba(85,53,255,1) 30%, rgba(82,43,252,1) 70%, rgba(255,255,255,0) 100%);
 }
 
 .pick_crops {
@@ -193,7 +199,7 @@ background: radial-gradient(circle, rgba(245,174,205,0.5) 0%, rgba(255,255,255,0
 }
 
 .game_info {
-  background: rgba(248, 163, 4, 0.8);
+  background: rgba(248, 163, 4, 0.9);
   text-align: center;
   line-height: 1.5em;
   /* flex-item of .right_container */
@@ -201,7 +207,7 @@ background: radial-gradient(circle, rgba(245,174,205,0.5) 0%, rgba(255,255,255,0
   /* flex-basis: 30%; */
 }
 
-.game_info > span {
+.game_info > div > p > span {
   font-weight: 700;
 }
 
@@ -273,6 +279,58 @@ background: radial-gradient(circle, rgba(245,174,205,0.5) 0%, rgba(255,255,255,0
   padding-top: 1em;
 }
 
+img:hover {
+  opacity: 1;
+}
+
+
+/* ACCORDION STYLING */
+
+.ui-accordion .ui-accordion-header {
+  cursor: pointer;
+  position: relative;
+  /* margin-top: 1px; */
+  zoom: 1;
+}
+
+/* .ui-accordion .ui-accordion-li-fix {
+  display: inline;
+}
+.ui-accordion .ui-accordion-header-active {
+  /* border-bottom: 0 !important; */
+/* }  */
+.ui-accordion .ui-accordion-header a {
+  display: block;
+  font-size: 1em;
+  padding: .5em .5em .5em .7em;
+}
+/* IE7-/Win - Fix extra vertical space in lists
+.ui-accordion a {
+  zoom: 1;
+} */
+.ui-accordion-icons .ui-accordion-header a {
+  padding-left: 2.2em;
+}
+.ui-accordion .ui-accordion-header .ui-icon {
+  position: absolute;
+  left: .5em;
+  top: 50%;
+  margin-top: -8px;
+}
+.ui-accordion .ui-accordion-content {
+  padding: 1em 2.2em;
+  border-top: 0;
+  margin-top: -2px;
+  position: relative;
+  top: 1px;
+  margin-bottom: 2px;
+  overflow: auto;
+  display: none;
+  zoom: 1;
+}
+.ui-accordion .ui-accordion-content-active {
+  display: block;
+}
 
 
 

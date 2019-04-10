@@ -1,3 +1,5 @@
+
+
 console.log('heyyy!');
 
 // const baseURL = "http://api.openweathermap.org/data/2.5/weather?";
@@ -42,19 +44,33 @@ class Farmer {
     this.earnedThisYear = 0;
     this.tempFahrenheit = tempFahrenheit;
   }
-  // function to buy animals from the store (when the animal is clicked)
-  buyAsset = (event) => {
+  // function to buy animals from the store (when the animal is clicked) ui object is needed for drag-drop functionality
+  buyAsset = (event, ui) => {
     console.log('this=', this);
     console.log('farmer=', farmer);
+    console.log('buyasset event =', $(event).eq(0).attr('class'));
+    // console.log('buyasset ui=', $(ui.draggable));
+    // console.log('buyasset ui class=', $(ui.draggable).eq(0).attr('class').match(/[a-z]+/)[0])
     // get class of clicked element
-    const clickedClass = $(event.currentTarget).attr('class');
+    console.log('buyAsset event type=', $(event)[0].type);
+    let clickedClass;
+    let typeOfEvent = $(event)[0].type;
+    if (typeOfEvent === 'click') {
+      clickedClass = $(event.currentTarget).attr('class').match(/[a-z]+/)[0];
+      // otherwise, typeOfEvent === 'drop'
+    } else {
+      clickedClass = $(ui.draggable).eq(0).attr('class').match(/[a-z]+/)[0];
+      console.log('dragged class=', clickedClass);
+      // event now needs to reference ui for appendPicture() function
+      event = ui;
+    }
     // console.log('costtobuy=', chickenFactory.costToBuy);
     console.log('clicked', clickedClass);
     // check the class of clicked picture and generate a corresponding animal or plant + append corresponding picture to the barn or to the field
     if (clickedClass === 'chicken') {
       if (chickenFactory.costToBuy <= this.farmerAccount) {
         chickenFactory.generateAnimal(farmer);
-        appendPicture(event, clickedClass);
+        appendPicture(event, clickedClass, typeOfEvent);
         // this.farmerAccount -= chickenFactory.costToBuy;
       } else {
         alert('You do not have enough money in your account for the purchase');
@@ -62,49 +78,49 @@ class Farmer {
     } else if (clickedClass === 'cow') {
       if (cowFactory.costToBuy <= this.farmerAccount) {
         cowFactory.generateAnimal(farmer);
-        appendPicture(event, clickedClass);
+        appendPicture(event, clickedClass, typeOfEvent);
       } else {
         alert('You do not have enough money in your account for the purchase');
       }
     } else if (clickedClass === 'goat') {
       if (goatFactory.costToBuy <= this.farmerAccount) {
         goatFactory.generateAnimal(farmer);
-        appendPicture(event, clickedClass);
+        appendPicture(event, clickedClass, typeOfEvent);
       } else {
         alert('You do not have enough money in your account for the purchase');
       }
     } else if (clickedClass === 'sheep') {
       if (sheepFactory.costToBuy <= this.farmerAccount) {
         sheepFactory.generateAnimal(farmer);
-        appendPicture(event, clickedClass);
+        appendPicture(event, clickedClass, typeOfEvent);
       } else {
         alert('You do not have enough money in your account for the purchase');
       }
     } else if (clickedClass === 'potato') {
       if (potatoFactory.costToBuy <= this.farmerAccount) {
         potatoFactory.generatePlant(farmer);
-        appendPicture(event, clickedClass);
+        appendPicture(event, clickedClass, typeOfEvent);
       } else {
         alert('You do not have enough money in your account for the purchase');
       }
     } else if (clickedClass === 'corn') {
       if (cornFactory.costToBuy <= this.farmerAccount) {
         cornFactory.generatePlant(farmer);
-        appendPicture(event, clickedClass);
+        appendPicture(event, clickedClass, typeOfEvent);
       } else {
         alert('You do not have enough money in your account for the purchase');
       }
     } else if (clickedClass === 'lettuce') {
       if (lettuceFactory.costToBuy <= this.farmerAccount) {
         lettuceFactory.generatePlant(farmer);
-        appendPicture(event, clickedClass);
+        appendPicture(event, clickedClass, typeOfEvent);
       } else {
         alert('You do not have enough money in your account for the purchase');
       }
     } else if (clickedClass === 'broccoli') {
       if (broccoliFactory.costToBuy <= this.farmerAccount) {
         broccoliFactory.generatePlant(farmer);
-        appendPicture(event, clickedClass);
+        appendPicture(event, clickedClass, typeOfEvent);
       } else {
         alert('You do not have enough money in your account for the purchase');
       }
@@ -280,8 +296,15 @@ const calculateLoanPayment = (loanAmount) => {
 
 
 // function to append picture to barn when it is clicked in store
-const appendPicture = (event, clickedClass) => {
-  const clickedImgSrc = $(event.currentTarget).attr('src');
+const appendPicture = (event, clickedClass, typeOfEvent) => {
+  console.log('appendPicture event', $(event));
+  let clickedImgSrc;
+  // typeOfEvent may be either 'click' or 'drop'
+  if (typeOfEvent === 'click') {
+    clickedImgSrc = $(event.currentTarget).attr('src');
+  } else {
+    clickedImgSrc = $(event.draggable).eq(0).attr('src');
+  }
   const $newImg = $('<img>').attr('src', clickedImgSrc);
   if (clickedClass === 'chicken' || clickedClass === 'cow' || clickedClass === 'goat' || clickedClass === 'sheep') {
     $('.barn_field_contents').eq(0).append($newImg);
@@ -408,13 +431,73 @@ const getDataFromWeather = (queryURL) => {
     // show game statistics
     farmer.showStatistics();
 
+    // event listener to close the game rules when clicking outside
+    $(document).on('click', function(e) {
+      if (!$(e.target).is('.container')) {
+          $('.ui-accordion-content').hide();
+        }
+        $(document).off('click');
+    });
+
   });
 }
+
+
+
+
+
+
 
 // document onready function
 $( () => {
   $(".city > form").on("submit", buildQueryForWeather);
   $(".loan > form").on("submit", getLoanAmount);
+  // accordion functionality
+  $( function () {
+    $(".game_info").accordion({
+      collapsible: true
+    })
+  })
+  // // drag-drop functionality (to drag and drop animals from the store to barn or field)
+  // make all images in the game draggable (background image is not under <img> tag). myHelper() is needed to preserve the size of the image when dragging starts
+  $("img").draggable({ revert: true, helper: myHelper });
+
+  function myHelper (event) {
+    console.log('helper=', $(event.currentTarget).eq(0).css("width"));
+    // return `<img src='${$(event.currentTarget).eq(0).attr('src')}' width='${$(event.currentTarget).eq(0).css("width")}'`
+    // console.log(`<img src=${$(event.currentTarget).eq(0).attr("src")}> width="${$(event.currentTarget).eq(0).css("width")}" height="${$(event.currentTarget).eq(0).css("height")}"`);
+
+    // return the div we want to see when the picture is dragged
+    return `<img src=${$(event.currentTarget).eq(0).attr("src")} width=${$(event.currentTarget).eq(0).css("width")} height=${$(event.currentTarget).eq(0).css("height")}>`;
+  }
+
+  // make tow divs with class .barn_field_contents droppable
+  $(".barn_field_contents").droppable({
+    drop: handleDropEvent
+  })
+
+  // we want to invoke buyAsset() and pass it both arguments $(event.currentTarget) - droppable object, and $(ui.draggable) - draggable object
+  function handleDropEvent (event, ui) {
+    // console.log('handLeDrop event=', $(event));
+    // console.log('ui.draggable=', $(ui.draggable).attr("class"));
+    return farmer.buyAsset(event, ui);
+  }
+
+
+  // $( function() {
+  //   let icons = {
+  //     header: "ui-icon-circle-arrow-e",
+  //     activeHeader: "ui-icon-circle-arrow-s"
+  //   };
+  //   $(".game_info").accordion({
+  //     icons: icons,
+  //     collapsible: true
+  //   });
+  // });
+
+
+
+
 }) // end of document onready function
 
 
@@ -531,4 +614,4 @@ $( () => {
 
 
 // Pseudocode
-// when the game loads, ask what city do you want to start your farm in
+
