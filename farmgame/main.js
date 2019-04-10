@@ -19,6 +19,9 @@ let loanPaymentYearly;
 let farmer;
 const barnPrice = 45000;
 
+// flag to alert the user that plants can be grown only once (for enableField() function)
+// let flagEnabled = false;
+
 let chickenFactory;
 let cowFactory;
 let goatFactory;
@@ -33,12 +36,14 @@ let broccoliFactory;
 // class Farmer (loanAmount needs to be passed)
 
 class Farmer {
-  constructor (loanAmount, loanPaymentYearly, weatherCoef) {
+  constructor (loanAmount, loanPaymentYearly, weatherCoef, farmCity) {
     this.barn = [];
     this.field = [];
+    this.fieldEnabled = false;
     this.yearsInBusiness = 0;
     this.loanAmount = loanAmount;
     this.loanPaymentYearly = loanPaymentYearly;
+    this.farmCity = farmCity;
     this.weatherCoef = weatherCoef;
     this.farmerAccount = 0;
     this.earnedThisYear = 0;
@@ -182,7 +187,15 @@ class Farmer {
     this.barn.splice(0, (this.barn).length);
     this.field.splice(0, (this.field).length);
 
-    this.didWin();
+    const endOfGame = this.didWin();
+
+    // if it is end of game localStorage needs to be cleared, else save farmer object to localStorage as a string
+    if (endOfGame) {
+      localStorage.clear();
+    } else {
+      localStorage.setItem('farmer', JSON.stringify(farmer));
+    }
+
   }
 
   // function to update game statistics on the screen
@@ -196,17 +209,25 @@ class Farmer {
   }
 
   // function to check if the user has won
+  // clear localStorage after alerts
+  // in case the game ended return true, otherwise false
   didWin = () => {
     if (this.yearsInBusiness === gameSpan) {
       if (this.farmerAccount >= 1000000) {
         alert('Great job! You won! You are a retired millionaire!');
+        return true;
       } else {
-        alert('You did not reach you goals for retirement. You have either picked the wrong place for farming or have not worked hard enough.')
+        alert('You did not reach you goals for retirement. You have either picked the wrong place for farming or have not worked hard enough.');
+        return true;
       }
     } else if (this.farmerAccount < 4000) {
       alert('You went bankrupt! You either picked the wrong place for farming or have not worked hard enough.');
+      return true;
     }
+    // if it is not end of game
+    return false;
   }
+
 
 }
 
@@ -334,12 +355,10 @@ const setWeatherCoef = (tempFahrenheit) => {
 
 
 //function to enable field after year 5
-// flag to alert the user that plants can be grown only once
-let flagEnabled = false;
 const enableField = () => {
-  if (!flagEnabled) {
+  if (!farmer.fieldEnabled) {
     alert('Congrats! You have enough experience to grow plants now!');
-    flagEnabled = true;
+    farmer.fieldEnabled = true;
     $('.field').css('display', 'block');
     $('.pick_crops > div').css('display', 'block');
     $('.barn_field_contents').css('height', 'calc(50vh - 1em * 1.2)');
@@ -387,13 +406,14 @@ const getDataFromWeather = (queryURL) => {
     console.log('tempKelvin=', tempKelvin);
     console.log('tempFahrenheit=', tempFahrenheit);
     let weatherCoef = setWeatherCoef(tempFahrenheit);
-
+    const farmCity = data.name;
+    console.log('farmCity=', farmCity);
     // // get user input (loan amount)
     // let loanAmount = getLoanAmount();
     // let loanPaymentYearly = calculateLoanPayment(loanAmount);
 
     // create a farmer
-    farmer = new Farmer(loanAmount, loanPaymentYearly, weatherCoef);
+    farmer = new Farmer(loanAmount, loanPaymentYearly, weatherCoef, farmCity);
     // console.log('farmer=', farmer);
 
     // notify that the user has enough money to purchase a barn for $45000
