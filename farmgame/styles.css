@@ -318,7 +318,7 @@ img:hover {
 .ui-accordion a {
   zoom: 1;
 } */
-/* .ui-accordion-icons .ui-accordion-header a {
+.ui-accordion-icons .ui-accordion-header a {
   padding-left: 2.2em;
 }
 .ui-accordion .ui-accordion-header .ui-icon {
@@ -342,7 +342,7 @@ img:hover {
 }
 .ui-accordion .ui-accordion-content-active {
   display: block;
-} */
+}
 
 
 
