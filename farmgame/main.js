@@ -487,7 +487,7 @@ const onLoadFunction = () => {
   }
 
   // experiments with custom properties CSS
-  let windowInnerHeight = $(".bg_img").height();
+  let windowInnerHeight = $("body").height();
   console.log('window.innerHeight=', windowInnerHeight);
   $(".barn_field_contents").css("--vh", `${windowInnerHeight}px`);
 
