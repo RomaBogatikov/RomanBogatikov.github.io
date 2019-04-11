@@ -485,6 +485,13 @@ const onLoadFunction = () => {
   } else {
     $("div.form_container.localStorage").css("display", "flex");
   }
+
+  // experiments with custom properties CSS
+  let windowInnerHeight = $(".bg_img").height();
+  console.log('window.innerHeight=', windowInnerHeight);
+  $(".barn_field_contents").css("--vh", `${windowInnerHeight}px`);
+
+  console.log($(".barn_field_contents").css("--vh"));
 }
 
 

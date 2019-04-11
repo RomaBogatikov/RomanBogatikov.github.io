@@ -125,11 +125,12 @@ div.form_container.localStorage {
 }
 
 .barn_field_contents {
+  --vh: 0;
   width: 80%;
   /* default line-height is normal: 1.2 */
   /* try to calculate based on vh */
   /* height: calc(50vh - 1em * 1.2); */
-  height: calc(100vh - 1em * 1.2);
+  height: calc(var(--vh) - 1em * 1.2);
   /* max-height: 30vh; */
 
   margin: 0 auto;
