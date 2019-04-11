@@ -449,12 +449,18 @@ const getDataFromWeather = (queryURL) => {
     $(".img_container > img").on("click", farmer.buyAsset);
       // event listener on 'next year' button
     $('.btn_next_year').on('click', farmer.nextYear)
+      // event listener to resize the 'game rules' window (to make it mobile friendly)
+    $(window).on("resize", determineBarnFieldHeight);
 
     console.log('farmer=', farmer);
     // return farmer;
 
     // show game statistics
     farmer.showStatistics();
+
+    // barnFieldHeight should be determined after farmer object is created to check if field is enabled (farmer.fieldEnabled)
+    determineBarnFieldHeight();
+
 
   }); // end of .then AJAX reguest
 } // end of getDataFromWeather function
@@ -477,14 +483,20 @@ const onLoadFunction = () => {
   // console.log('window.innerHeight=', windowInnerHeight);
   // $(".barn_field_contents").css("--vh", `${windowInnerHeight}px`);
   // console.log($(".barn_field_contents").css("--vh"));
-  determineBarnFieldHeight();
+  // determineBarnFieldHeight();
 }
 
 // to determine .barn_field_contents fields height dinamically (on resizing the window)
 const determineBarnFieldHeight = () => {
   let windowInnerHeight = $(window).height();
+  let barnFieldHeaderHeight = $(".barn > p:first-child").height();
+  // console.log("barnHeaderHeight =", barnFieldHeaderHeight);
   // console.log('window.innerHeight=', windowInnerHeight);
-  $(".barn_field_contents").css("--vh", `${windowInnerHeight}px`);
+  if (farmer.fieldEnabled === false) {
+    $(".barn_field_contents").css("--vh", `${windowInnerHeight}px`);
+  } else {
+    $(".barn_field_contents").css("--vh", `${windowInnerHeight / 2 - barnFieldHeaderHeight}`)
+  }
   // console.log($(".barn_field_contents").css("--vh"));
 }
 
@@ -539,7 +551,7 @@ $( () => {
   $(".localStorage > form > input[type='submit']").on("click", manageModalsGameStart);
 
   // event listener to resize the 'game rules' window (to make it mobile friendly)
-  $(window).on("resize", determineBarnFieldHeight);
+  // $(window).on("resize", determineBarnFieldHeight);
 
   // event listener to check if the user wants to load the previous game from localStorage or start a new one
   $(document).ready(onLoadFunction);
@@ -550,6 +562,8 @@ $( () => {
   // event listeners on 'next year' button and on all animals and plants are set after farmer object is created
   // $('.btn_next_year').on('click', farmer.nextYear)
   // $(".img_container > img").on("click", farmer.buyAsset);
+
+
 
   /////////////////////////////////////////
   ///////Drag and Drop Animals and Plants

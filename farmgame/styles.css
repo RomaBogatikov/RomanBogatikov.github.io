@@ -114,7 +114,10 @@ div.form_container.localStorage {
 
   /* to center the word 'barn' */
   text-align: center;
+}
 
+.barn > p, .field > p {
+  margin: 0;
 }
 
 .barn_field_contents {
