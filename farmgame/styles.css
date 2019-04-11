@@ -125,6 +125,7 @@ div.form_container.localStorage {
 }
 
 .barn_field_contents {
+  /* custom variable is needed to prevent overflow on mobile devices (URL bar height problem) */
   --vh: 0;
   width: 80%;
   /* default line-height is normal: 1.2 */
