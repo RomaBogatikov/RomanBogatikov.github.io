@@ -489,7 +489,15 @@ const onLoadFunction = () => {
   }
 
   // on load --vh needs to be set based on viewport height excluding URL bar
-  let windowInnerHeight = $("body").height();
+  // let windowInnerHeight = $(window).height();
+  // console.log('window.innerHeight=', windowInnerHeight);
+  // $(".barn_field_contents").css("--vh", `${windowInnerHeight}px`);
+  // console.log($(".barn_field_contents").css("--vh"));
+  determineBarnFieldHeight();
+}
+
+const determineBarnFieldHeight = () => {
+  let windowInnerHeight = $(window).height();
   console.log('window.innerHeight=', windowInnerHeight);
   $(".barn_field_contents").css("--vh", `${windowInnerHeight}px`);
   console.log($(".barn_field_contents").css("--vh"));
