@@ -181,6 +181,7 @@ class Farmer {
 
     if (this.yearsInBusiness > 5) {
       enableField();
+      determineBarnFieldHeight();
     }
 
     // remove all elements from barn and field arrays to start new year
@@ -428,6 +429,7 @@ const getDataFromWeather = (queryURL) => {
         // the line is needed to run enableField() function properly
         farmer.fieldEnabled = false;
         enableField();
+        determineBarnFieldHeight();
       }
     }
 
@@ -550,8 +552,7 @@ $( () => {
   $(".loan > form").on("submit", getLoanAmount);
   $(".localStorage > form > input[type='submit']").on("click", manageModalsGameStart);
 
-  // event listener to resize the 'game rules' window (to make it mobile friendly)
-  // $(window).on("resize", determineBarnFieldHeight);
+
 
   // event listener to check if the user wants to load the previous game from localStorage or start a new one
   $(document).ready(onLoadFunction);
@@ -562,7 +563,8 @@ $( () => {
   // event listeners on 'next year' button and on all animals and plants are set after farmer object is created
   // $('.btn_next_year').on('click', farmer.nextYear)
   // $(".img_container > img").on("click", farmer.buyAsset);
-
+  // event listener to resize the 'game rules' window (to make it mobile friendly)
+  // $(window).on("resize", determineBarnFieldHeight);
 
 
   /////////////////////////////////////////
