@@ -503,6 +503,25 @@ const determineBarnFieldHeight = () => {
   console.log($(".barn_field_contents").css("--vh"));
 }
 
+const manageModalsGameStart = (event) => {
+  event.preventDefault();
+  console.log($(event.currentTarget).attr('id'));
+  const clickedID = $(event.currentTarget).attr('id');
+  // if start a new game was clicked, we remove the modal from the screen and start the game (with selecting a city etc.)
+  if (clickedID === 'start_new') {
+    $(event.currentTarget).parent().parent().remove();
+    $(".city").css("display", "flex");
+    // otherwise, 'continue previous game' was clicked
+  } else {
+    // load farmer object from localStorage, parse it
+    // assign it to 'farmer' variable
+    farmerFromLocalStorage = JSON.parse(localStorage.getItem('farmer'));
+    $(event.currentTarget).parent().parent().remove();
+    console.log(farmerFromLocalStorage);
+    getDataFromWeather(farmerFromLocalStorage.queryURL);
+  }
+
+}
 
 
 
@@ -510,25 +529,9 @@ const determineBarnFieldHeight = () => {
 $( () => {
   $(".city > form").on("submit", buildQueryForWeather);
   $(".loan > form").on("submit", getLoanAmount);
-  $(".localStorage > form > input[type='submit']").on("click", function (event) {
-    event.preventDefault();
-    console.log($(event.currentTarget).attr('id'));
-    const clickedID = $(event.currentTarget).attr('id');
-    // if start a new game was clicked, we remove the modal from the screen and start the game (with selecting a city etc.)
-    if (clickedID === 'start_new') {
-      $(event.currentTarget).parent().parent().remove();
-      $(".city").css("display", "flex");
-      // otherwise, 'continue previous game' was clicked
-    } else {
-      // load farmer object from localStorage, parse it
-      // assign it to 'farmer' variable
-      farmerFromLocalStorage = JSON.parse(localStorage.getItem('farmer'));
-      $(event.currentTarget).parent().parent().remove();
-      console.log(farmerFromLocalStorage);
-      getDataFromWeather(farmerFromLocalStorage.queryURL);
-    }
+  $(".localStorage > form > input[type='submit']").on("click", manageModalsGameStart);
 
-  })
+  $(window).on("resize", determineBarnFieldHeight);
   $(document).ready(onLoadFunction)
 
   // $(window).on('load', onLoadFunction);
