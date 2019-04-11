@@ -462,13 +462,15 @@ const getDataFromWeather = (queryURL) => {
     // show game statistics
     farmer.showStatistics();
 
-    // event listener to close the game rules when clicking outside
-    $(document).on('click', function(e) {
-      if (!$(e.target).is('.container')) {
-          $('.ui-accordion-content').hide();
-        }
-        $(document).off('click');
-    });
+
+    // used in conjunction with accordion()
+    // // event listener to close the game rules when clicking outside
+    // $(document).on('click', function(e) {
+    //   if (!$(e.target).is('.container')) {
+    //       $('.ui-accordion-content').hide();
+    //     }
+    //     $(document).off('click');
+    // });
 
   });
 }
@@ -486,11 +488,10 @@ const onLoadFunction = () => {
     $("div.form_container.localStorage").css("display", "flex");
   }
 
-  // experiments with custom properties CSS
+  // on load --vh needs to be set based on viewport height excluding URL bar
   let windowInnerHeight = $("body").height();
   console.log('window.innerHeight=', windowInnerHeight);
   $(".barn_field_contents").css("--vh", `${windowInnerHeight}px`);
-
   console.log($(".barn_field_contents").css("--vh"));
 }
 
@@ -527,11 +528,11 @@ $( () => {
 
 
   // accordion functionality
-  $( function () {
-    $(".game_info").accordion({
-      collapsible: true
-    })
-  })
+  // $( function () {
+  //   $(".game_info").accordion({
+  //     collapsible: true
+  //   })
+  // })
 
 
   /////////////////////////////////////////

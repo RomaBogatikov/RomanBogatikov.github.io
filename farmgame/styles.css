@@ -222,7 +222,6 @@ background: linear-gradient(0deg, rgba(242,242,242,0) 0%, rgba(85,53,255,1) 30%,
 }
 
 .btn_container {
-  /* background: rgba(201, 23, 201, 0.5); */
   /* to move button 'Next Year' right */
   text-align: right;
 }
@@ -249,9 +248,6 @@ background: linear-gradient(0deg, rgba(242,242,242,0) 0%, rgba(85,53,255,1) 30%,
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  /* overflow: scroll; */
-
 }
 
 .store_animals_crops > div {
@@ -259,11 +255,8 @@ background: linear-gradient(0deg, rgba(242,242,242,0) 0%, rgba(85,53,255,1) 30%,
 }
 
 .img_container > img {
-  /* flex-basis: 25%; */
   max-height: auto;
   max-width: 100%;
-  /* object-fit: contain; */
-
 }
 
 .img_container > p {
@@ -289,19 +282,16 @@ background: linear-gradient(0deg, rgba(242,242,242,0) 0%, rgba(85,53,255,1) 30%,
   padding-top: 1em;
 }
 
-img:hover {
-  opacity: 1;
-}
 
 
 /* ACCORDION STYLING */
-
+/*
 .ui-accordion .ui-accordion-header {
   cursor: pointer;
   position: relative;
-  /* margin-top: 1px; */
+  margin-top: 1px;
   zoom: 1;
-}
+} */
 
 /* .ui-accordion .ui-accordion-li-fix {
   display: inline;
@@ -309,15 +299,15 @@ img:hover {
 .ui-accordion .ui-accordion-header-active {
   /* border-bottom: 0 !important; */
 /* }  */
-.ui-accordion .ui-accordion-header a {
+/* .ui-accordion .ui-accordion-header a {
   display: block;
   font-size: 1em;
   padding: .5em .5em .5em .7em;
-}
-/* IE7-/Win - Fix extra vertical space in lists
-.ui-accordion a {
-  zoom: 1;
 } */
+/* IE7-/Win - Fix extra vertical space in lists */
+/* .ui-accordion a {
+  zoom: 1;
+}
 .ui-accordion-icons .ui-accordion-header a {
   padding-left: 2.2em;
 }
@@ -337,16 +327,7 @@ img:hover {
   overflow: auto;
   display: none;
   zoom: 1;
-
-
 }
 .ui-accordion .ui-accordion-content-active {
   display: block;
-}
-
-
-
-/* may be needed for .right_container game status */
-/* p {
-  height: 1rem;
 } */
