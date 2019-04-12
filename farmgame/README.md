@@ -13,4 +13,3 @@ JavaScript, HTML, CSS, jQuery
 * modals,
 * responsive design (mobile friendly).
 
-184
