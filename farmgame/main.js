@@ -181,7 +181,7 @@ class Farmer {
 
     if (this.yearsInBusiness > 5) {
       enableField();
-      // determineBarnFieldHeight();
+      determineBarnFieldHeight();
     }
 
     // remove all elements from barn and field arrays to start new year
@@ -429,7 +429,7 @@ const getDataFromWeather = (queryURL) => {
         // the line is needed to run enableField() function properly
         farmer.fieldEnabled = false;
         enableField();
-        // determineBarnFieldHeight();
+        determineBarnFieldHeight();
       }
     }
 
@@ -461,7 +461,7 @@ const getDataFromWeather = (queryURL) => {
     farmer.showStatistics();
 
     // barnFieldHeight should be determined after farmer object is created to check if field is enabled (farmer.fieldEnabled)
-    // determineBarnFieldHeight();
+    determineBarnFieldHeight();
 
 
   }); // end of .then AJAX reguest
@@ -499,7 +499,7 @@ const determineBarnFieldHeight = () => {
   if (farmer.fieldEnabled === false) {
     $(".barn_field_contents").css("--vh", `${windowInnerHeight}px`);
   } else {
-    $(".barn_field_contents").css("--vh", `${heightWhenTwoFields}`)
+    $(".barn_field_contents").css("--vh", `${heightWhenTwoFields}px`)
   }
   // console.log($(".barn_field_contents").css("--vh"));
 }
