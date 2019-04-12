@@ -494,10 +494,11 @@ const determineBarnFieldHeight = () => {
   let barnFieldHeaderHeight = $(".barn > p:first-child").height();
   // console.log("barnHeaderHeight =", barnFieldHeaderHeight);
   // console.log('window.innerHeight=', windowInnerHeight);
+  let heightWhenTwoFields = windowInnerHeight / 2 - barnFieldHeaderHeight;
   if (farmer.fieldEnabled === false) {
     $(".barn_field_contents").css("--vh", `${windowInnerHeight}px`);
   } else {
-    $(".barn_field_contents").css("--vh", `${windowInnerHeight / 2 - barnFieldHeaderHeight}`)
+    $(".barn_field_contents").css("--vh", `${heightWhenTwoFields}`)
   }
   // console.log($(".barn_field_contents").css("--vh"));
 }
