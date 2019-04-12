@@ -181,7 +181,7 @@ class Farmer {
 
     if (this.yearsInBusiness > 5) {
       enableField();
-      determineBarnFieldHeight();
+      // determineBarnFieldHeight();
     }
 
     // remove all elements from barn and field arrays to start new year
@@ -362,7 +362,7 @@ const enableField = () => {
     farmer.fieldEnabled = true;
     $('.field').css('display', 'block');
     $('.pick_crops > div').css('display', 'block');
-    $('.barn_field_contents').css('height', 'calc(50vh - 1em * 1.2)');
+    // $('.barn_field_contents').css('height', 'calc(50vh - 1em * 1.2)');
   }
 }
 
@@ -429,7 +429,7 @@ const getDataFromWeather = (queryURL) => {
         // the line is needed to run enableField() function properly
         farmer.fieldEnabled = false;
         enableField();
-        determineBarnFieldHeight();
+        // determineBarnFieldHeight();
       }
     }
 
@@ -461,7 +461,7 @@ const getDataFromWeather = (queryURL) => {
     farmer.showStatistics();
 
     // barnFieldHeight should be determined after farmer object is created to check if field is enabled (farmer.fieldEnabled)
-    determineBarnFieldHeight();
+    // determineBarnFieldHeight();
 
 
   }); // end of .then AJAX reguest
@@ -492,9 +492,10 @@ const onLoadFunction = () => {
 const determineBarnFieldHeight = () => {
   let windowInnerHeight = $(window).height();
   let barnFieldHeaderHeight = $(".barn > p:first-child").height();
-  // console.log("barnHeaderHeight =", barnFieldHeaderHeight);
-  // console.log('window.innerHeight=', windowInnerHeight);
+  console.log("barnHeaderHeight =", barnFieldHeaderHeight);
+  console.log('window.innerHeight=', windowInnerHeight);
   let heightWhenTwoFields = windowInnerHeight / 2 - barnFieldHeaderHeight;
+  console.log('heightWhenTwoFields=', heightWhenTwoFields);
   if (farmer.fieldEnabled === false) {
     $(".barn_field_contents").css("--vh", `${windowInnerHeight}px`);
   } else {
