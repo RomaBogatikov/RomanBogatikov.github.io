@@ -28,7 +28,10 @@ body {
     list-style-type: none;
     flex-basis: 1in;
     text-align: center;
-    background-color: rgba(41, 138, 41, 0.7);
+    background-color: rgba(41, 138, 41, 0.8);
+    letter-spacing: 2px;
+    font-weight: 900;
+    font-size: 1.1em;
 }
 
 #navbar ul li:nth-child(1) {
@@ -84,7 +87,7 @@ body {
 #photo figcaption {
     font-size: 2rem;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
 
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.9);
@@ -99,18 +102,44 @@ body {
     font-weight: 700;
 }
 
+#about_me {
+    margin: 0 auto;
+    width: 60%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#about_me div {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2em;
+    border-radius: 10px;
+}
+
+#about_me h2 {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+#about_me p {
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+
 #projects {
     min-height: 100vh;
     background-color: transparent;
     text-align: center;
-  
+
 }
 
 #projects h2 {
     font-size: 2rem;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.8);
     padding: 0.5em 0 0.5em 0;
     margin-top: 2em;
+    margin-bottom: 4em;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.9);
 
 }
@@ -123,13 +152,13 @@ body {
 .project_tile {
     display: flex;
     justify-content: space-around;
-    flex-wrap: wrap;   
+    flex-wrap: wrap;
 }
 
 .project_tile a {
     text-decoration: none;
     font-weight: bold;
-    color: rgb(2, 73, 73); 
+    color: rgb(2, 73, 73);
     background-color: #F5F3F3;
     border-radius: 10px;
 }
@@ -147,7 +176,7 @@ body {
     border: 3px solid rgb(22, 73, 73);
     margin: 10px;
     margin-bottom: 5em;
-    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.9);   
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.9);
 }
 
 .project_tile a:hover {
@@ -184,7 +213,7 @@ body {
     color: #F5F3F3;
     /* background-color: #cbfdcb; */
     background-image: linear-gradient(transparent, rgba(11, 95, 22, 0.7), transparent);
-    padding: 40px 0 40px 0;  
+    padding: 40px 0 40px 0;
   }
 
 #contact {
