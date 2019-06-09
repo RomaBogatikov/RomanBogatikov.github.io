@@ -16,6 +16,7 @@ body {
     position: fixed;
     width: 100%;
     height: auto;
+    z-index: 1;
 }
 
 #navbar ul {
@@ -157,14 +158,6 @@ body {
     flex-wrap: wrap;
 }
 
-.project_tile a {
-    text-decoration: none;
-    font-weight: bold;
-    color: rgb(2, 73, 73);
-    background-color: #F5F3F3;
-    border-radius: 10px;
-}
-
 .project_tile img {
     display: inline-block;
     width: 250px;
@@ -175,10 +168,17 @@ body {
 }
 
 .project_tile a {
+    text-decoration: none;
+    font-weight: bold;
+    color: rgb(2, 73, 73);
+    background-color: #F5F3F3;
+    border-radius: 10px;
     border: 3px solid rgb(22, 73, 73);
     margin: 10px;
     margin-bottom: 5em;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.9);
+    position: relative;
+    overflow: hidden;
 }
 
 .project_tile a:hover {
@@ -304,5 +304,61 @@ body {
     }
     #about_me p {
         font-size: 1rem;
+    }
+}
+
+
+/* project tile hover over effects */
+
+.blanket_top {
+    position: absolute;
+    top: 0%;
+    bottom: 50%;
+    left: 0%;
+    right: 0%;
+    background-color: rgba(41, 138, 41, 0.9);
+    transform: translate(0%, -100%);
+    /* z-index: -1; */
+    color: white;
+}
+
+.blanket_bottom {
+    position: absolute;
+    top: 50%;
+    bottom: 0%;
+    left: 0%;
+    right: 0%;
+    background-color: rgba(41, 138, 41, 0.9);
+    transform: translate(0%, 100%);
+    /* z-index: -1; */
+    color: white;
+}
+
+.project_tile a:hover .blanket_top{
+    animation: 0.5s linear close_top;
+    transform: translate(0%, 0%);
+}
+.project_tile a:hover .blanket_bottom{
+    animation: 0.5s linear close_bottom;
+    transform: translate(0%, 0%);
+}
+
+
+
+
+@keyframes close_bottom {
+    from {
+        transform: translate(0%, 100%);
+    }
+    to {
+        transform: translate(0%, 0%);
+    }
+}
+@keyframes close_top {
+    from {
+        transform: translate(0%, -100%);
+    }
+    to {
+        transform: translate(0%, 0%);
     }
 }
